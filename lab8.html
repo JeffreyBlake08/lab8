@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rock Paper Scissors</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+    <h1 id="result">Click the button to play Rock, Paper, Scissors!</h1>
+
+    <button onclick="playGame()">Play Game</button>
+
+    <script>
+        // This function runs every time the user clicks the button
+        function playGame() {
+
+            // 1. Ask the user for their choice
+            var userChoice = prompt("Type rock, paper, or scissors:");
+            
+            // Make sure we don't crash if they cancel the prompt
+            if (userChoice === null) {
+                document.getElementById("result").innerHTML = "You cancelled the game.";
+                return; // stop the function here
+            }
+
+            // Convert what they typed to lower case so we can compare it easily
+            userChoice = userChoice.toLowerCase();
+
+            // 2. Get the computer's choice
+            var choices = ["rock", "paper", "scissors"];
+            var randomNumber = Math.floor(Math.random() * 3); // 0, 1, or 2
+            var computerChoice = choices[randomNumber];
+
+            // 3. Show both choices to the user
+            var output = "You chose: " + userChoice + "<br>Computer chose: " + computerChoice + "<br>";
+
+            // 4. Check if the user has typed something valid
+            if (userChoice !== "rock" && userChoice !== "paper" && userChoice !== "scissors") {
+                output += "Invalid input. Please type rock, paper, or scissors and try again.";
+            }
+
+            // 5. If it's not invalid, check the results
+            else if (userChoice === computerChoice) {
+                // Same choice = draw
+                output += "It's a draw!";
+            }
+
+            // 6. User picked rock
+            else if (userChoice === "rock") {
+                // Nested if to check what the computer picked
+                if (computerChoice === "scissors") {
+                    output += "Rock beats scissors — you win!";
+                } else { // the only other valid option left here is paper
+                    output += "Paper beats rock — you lose!";
+                }
+            }
+
+            // 7. User picked paper
+            else if (userChoice === "paper") {
+                if (computerChoice === "rock") {
+                    output += "Paper beats rock — you win!";
+                } else { // must be scissors
+                    output += "Scissors beat paper — you lose!";
+                }
+            }
+
+            // 8. User picked scissors
+            else if (userChoice === "scissors") {
+                if (computerChoice === "paper") {
+                    output += "Scissors beat paper — you win!";
+                } else { // must be rock
+                    output += "Rock beats scissors — you lose!";
+                }
+            }
+
+            // Finally, print everything into the <h1> on the page
+            document.getElementById("result").innerHTML = output;
+        }
+    </script>
+
+</body>
+</html>
